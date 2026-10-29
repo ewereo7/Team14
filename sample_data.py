@@ -6,7 +6,7 @@ Every record is fictional. Dates are fixed (not "today") so every screen and
 every screenshot tells the same story.
 
 Usage:
-    from data.sample_data import get_sample_data
+    from sample_data import get_sample_data
     data = get_sample_data()
 """
 from copy import deepcopy
