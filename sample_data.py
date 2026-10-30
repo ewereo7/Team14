@@ -32,7 +32,7 @@ EMPLOYEES = [
     {"id": 5, "name": "Ben Johnson",   "email": "ben.johnson@make-it-all.co.uk",   "role": "Employee",    "team": "Web"},
     {"id": 6, "name": "Chloe Nguyen",  "email": "chloe.nguyen@make-it-all.co.uk",  "role": "Employee",    "team": "Web"},
     {"id": 7, "name": "Kash Patel",    "email": "kash.patel@make-it-all.co.uk",    "role": "Employee",    "team": "Platform"},
-    {"id": 8, "name": "Erin Walsh",    "email": "erin.walsh@make-it-all.co.uk",    "role": "Employee",    "team": "Platform"},
+    {"id": 8, "name": "Erin Walace",    "email": "erin.walace@make-it-all.co.uk",    "role": "Employee",    "team": "Platform"},
 ]
 
 # leader_id is an employee id (same style as PROJECTS); "name" matches EMPLOYEES["team"]
