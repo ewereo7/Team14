@@ -37,10 +37,19 @@ class MainWindow(QMainWindow):
         self.sidebar_layout = QVBoxLayout(self.sidebar)
         self.sidebar_layout.setContentsMargins(12, 16, 12, 16)
 
-        #app title
-        self.title_label = QLabel("Make-It-All")
-        set_role(self.title_label, "subtitle")
-        self.sidebar_layout.addWidget(self.title_label)
+        #app logo image
+        from PySide6.QtGui import QPixmap
+        self.logo_label = QLabel()
+        
+        # Change "logo.png" to match your actual image file's name in your project folder
+        pixmap = QPixmap("logo.png") 
+        
+        # Scale the image to fit the sidebar nicely
+        scaled_pixmap = pixmap.scaled(160, 60, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+        self.logo_label.setPixmap(scaled_pixmap)
+        self.logo_label.setAlignment(Qt.AlignCenter)
+        
+        self.sidebar_layout.addWidget(self.logo_label)
 
         # Choose roels (Employee, Team Leader, Manager)
         self.role_label = QLabel("Current Role / User:")
