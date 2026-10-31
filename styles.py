@@ -13,20 +13,22 @@ never hard-codes a colour or font size in their own file.
 """
 
 PALETTE = {
-    "bg":          "#F4F6FA",   # window background
+    "bg":          "#E5E7EB",   # window background
     "surface":     "#FFFFFF",   # cards, tables
-    "sidebar":     "#1F2A44",   # navigation panel
-    "sidebar_hi":  "#2E3D63",   # hovered / selected nav button
-    "primary":     "#2F6FED",   # buttons, links, selection
-    "primary_dk":  "#2559C4",   # button hover
-    "text":        "#1B2333",
+    "sidebar":     "#FFD400",   # navigation panel
+    "sidebar_hi":  "#E6BF00",   # hovered / selected nav button
+    "primary":     "#FFD400",   # buttons, links, selection
+    "primary_dk":  "#E6BF00",   # button hover
+    "text":        "#111827",
     "text_muted":  "#667085",
-    "border":      "#E1E5EE",
+    "border":      "#D1D5DB",
     "grid":        "#EDF0F6",   # Gantt grid lines
     "success":     "#2E9D6B",
     "warning":     "#E8A317",
     "danger":      "#D64545",
     "info":        "#2F6FED",
+    "button":      "#858585",
+    "button_hover": "#6B6B6B",
 }
 
 # One colour per task status. Gantt bars, chips and dashboard cards all use these.
