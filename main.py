@@ -70,7 +70,7 @@ class MainWindow(QMainWindow):
         self.nav_buttons = {}
         nav_items = [
             ("Dashboard", 0),
-            ("To-Do Lists / Tasks", 1),
+            ("To-Do Lists && Tasks", 1),
             ("Team Workload", 2),
             ("Gantt Chart", 3),
             ("Knowledge Management", 4)
@@ -137,15 +137,17 @@ class MainWindow(QMainWindow):
         
         # Enforce role restrictions based on stakeholder requirements
         if role_key == "Employee":
-            #No dashboard or team workload
-            self.nav_buttons[0].setEnabled(False)  
-            self.nav_buttons[2].setEnabled(False)  
+            # Hide Dashboard (Index 0) and Team Workload (Index 2) buttons completely
+            self.nav_buttons[0].hide()  
+            self.nav_buttons[2].hide()  
+            
             if self.stack.currentIndex() in [0, 2]:
                 self.nav_buttons[1].setChecked(True)
                 self.switch_page(1)
         else:
-            self.nav_buttons[0].setEnabled(True)   
-            self.nav_buttons[2].setEnabled(True)   
+            # Show Dashboard and Team Workload buttons for managers/team leaders
+            self.nav_buttons[0].show()  
+            self.nav_buttons[2].show()  
 
         print(f"Switched active user view to role: {role_key}")
 
