@@ -70,7 +70,7 @@ class MainWindow(QMainWindow):
         self.nav_buttons = {}
         nav_items = [
             ("Dashboard", 0),
-            ("To-Do Lists & Tasks", 1),
+            ("To-Do Lists / Tasks", 1),
             ("Team Workload", 2),
             ("Gantt Chart", 3),
             ("Knowledge Management", 4)

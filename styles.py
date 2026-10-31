@@ -90,7 +90,7 @@ QLabel[role="danger"]   {{ color: #8C1F1F; background: #FDE8E8; border: 1px soli
 #Sidebar {{ background: {p['sidebar']}; min-width: {SIDEBAR_WIDTH}px; max-width: {SIDEBAR_WIDTH}px; }}
 #Sidebar QLabel {{ color: #222222; }}
 #Sidebar QLabel[role="muted"] {{ color: #AAB4CF; }}
-#Sidebar QPushButton {{ background: transparent; color: #D6DCEE; text-align: left;
+#Sidebar QPushButton {{ background: transparent; color: Black; text-align: left;
                         padding: 10px 14px; border: none; border-radius: 8px; }}
 #Sidebar QPushButton:hover {{ background: {p['sidebar_hi']}; color: white; }}
 #Sidebar QPushButton:checked {{ background: {p['primary']}; color: white; font-weight: 600; }}
