@@ -99,7 +99,7 @@ class MainWindow(QMainWindow):
         self.page_team = QLabel("Team Workload Management Screen (team.py)")
         
         # 4. Gantt Chart Placeholder
-        self.page_gantt = QLabel("Gantt Chart View (gantt.py)")
+        self.page_gantt = gantt_page()  # This will call the create_page function from gantt.py
         
         # 5. Knowledge Management Placeholder
         self.page_knowledge = QLabel("Knowledge Management Topics & Posts (knowledge.py)")
