@@ -10,7 +10,7 @@ COLUMNS = ["Task", "Project", "Assigned to", "Start", "Due", "Status", "Progress
 
 def create_page(data=None):
     data = sample_data.get_sample_data()
-    # If no data is given, use the sample data
+    # If no data is given then use the sample data
     if data is None:
         data = sample_data.get_sample_data()
 
