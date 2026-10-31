@@ -105,7 +105,7 @@ class MainWindow(QMainWindow):
         self.page_gantt = gantt_page()  # This will call the create_page function from gantt.py
         
         # 5. Knowledge Management Placeholder
-        self.page_knowledge = QLabel("Knowledge Management Topics & Posts (knowledge.py)")
+        self.page_knowledge = knowledge_page()
 
         # Add screens to stack
         self.stack.addWidget(self.page_dashboard_card) # Index 0
