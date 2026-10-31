@@ -123,7 +123,7 @@ class MainWindow(QMainWindow):
         self.stack.setCurrentIndex(index)
 
     def update_permissions(self):
-        #Picks whayt can been seen depending on the role
+        #Picks what can been seen depending on the role
         role_key = self.role_combo.currentData()
         
         # Enforce role restrictions based on stakeholder requirements

@@ -13,20 +13,22 @@ never hard-codes a colour or font size in their own file.
 """
 
 PALETTE = {
-    "bg":          "#F4F6FA",   # window background
+    "bg":          "#E5E7EB",   # window background
     "surface":     "#FFFFFF",   # cards, tables
-    "sidebar":     "#1F2A44",   # navigation panel
-    "sidebar_hi":  "#2E3D63",   # hovered / selected nav button
-    "primary":     "#2F6FED",   # buttons, links, selection
-    "primary_dk":  "#2559C4",   # button hover
-    "text":        "#1B2333",
+    "sidebar":     "#FFD400",   # navigation panel
+    "sidebar_hi":  "#E6BF00",   # hovered / selected nav button
+    "primary":     "#FFD400",   # buttons, links, selection
+    "primary_dk":  "#E6BF00",   # button hover
+    "text":        "#111827",
     "text_muted":  "#667085",
-    "border":      "#E1E5EE",
+    "border":      "#D1D5DB",
     "grid":        "#EDF0F6",   # Gantt grid lines
     "success":     "#2E9D6B",
     "warning":     "#E8A317",
     "danger":      "#D64545",
     "info":        "#2F6FED",
+    "button":      "#858585",
+    "button_hover": "#6B6B6B",
 }
 
 # One colour per task status. Gantt bars, chips and dashboard cards all use these.
@@ -99,21 +101,49 @@ QLabel[role="danger"]   {{ color: #8C1F1F; background: #FDE8E8; border: 1px soli
 #Card QLabel {{ background: transparent; }}
 
 /* ---------- buttons ---------- */
-QPushButton {{ background: {p['primary']}; color: white; border: none; border-radius: 8px;
-               padding: 8px 16px; font-weight: 600; }}
-QPushButton:hover {{ background: {p['primary_dk']}; }}
-QPushButton:pressed {{ background: {p['primary_dk']}; }}
-QPushButton:disabled {{ background: {p['border']}; color: {p['text_muted']}; }}
-QPushButton[flat="true"], QPushButton[variant="secondary"] {{
-    background: {p['surface']}; color: {p['text']}; border: 1px solid {p['border']}; }}
-QPushButton[variant="secondary"]:hover {{ background: {p['grid']}; }}
+QPushButton {{
+    background: {p['button']};
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 600;
+}}
 
+QPushButton:hover {{
+    background: {p['button_hover']};
+}}
+
+QPushButton:pressed {{
+    background: {p['button_hover']};
+}}
+
+QPushButton:disabled {{
+    background: {p['border']};
+    color: {p['text_muted']};
+}}
 /* ---------- inputs ---------- */
 QLineEdit, QTextEdit, QPlainTextEdit, QComboBox, QDateEdit, QSpinBox {{
     background: {p['surface']}; border: 1px solid {p['border']}; border-radius: 8px;
     padding: 7px 10px; selection-background-color: {p['primary']}; selection-color: white; }}
 QLineEdit:focus, QTextEdit:focus, QComboBox:focus, QDateEdit:focus {{ border: 1px solid {p['primary']}; }}
 QComboBox::drop-down {{ border: none; width: 22px; }}
+QComboBox {{
+    background: {p['surface']};
+    color: {p['text']};
+    border: 1px solid {p['border']};
+    border-radius: 8px;
+    padding: 8px 12px;
+}}
+
+QComboBox QAbstractItemView {{
+    background: {p['surface']};
+    color: {p['text']};
+    border: 1px solid {p['border']};
+    selection-background-color: {p['primary']};
+    selection-color: {p['text']};
+    outline: none;
+}}
 
 /* ---------- lists and tables ---------- */
 QTableWidget, QTableView, QListWidget, QTreeWidget {{

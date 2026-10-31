@@ -1,8 +1,9 @@
 # To-do lists and Project Tasks Page
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QLabel,
                                QComboBox, QTableWidget, QTableWidgetItem, QHeaderView)
-import sample_data
+from sample_data import sample_data
 from styles import set_role, status_chip_qss
+
 
 COLUMNS = ["Task", "Project", "Assigned to", "Start", "Due", "Status", "Progress"]
 
