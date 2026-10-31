@@ -4,9 +4,10 @@ from PySide6.QtWidgets import QWidget,QVBoxLayout,QLabel,QComboBox
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg
 import matplotlib.dates as mdates
+from matplotlib.patches import Patch
 from sample_data import get_sample_data, parse_date
 from styles import PALETTE, set_role, status_colour
-
+from datetime import date
 
 
 def create_page():
@@ -87,7 +88,57 @@ def draw_gantt(ax, tasks):
             color=colour,
             height=0.6
         )
+        ax.text(
+            x=start_num + duration + 0.3,
+            y=index,
+            s=f"{task['progress']}%",
+            va="center",
+            fontsize=9,
+            color=PALETTE["text"]
+        )
 
+    if tasks:
+        latest_end = max(
+            parse_date(task["end_date"])
+            for task in tasks
+        )
+
+        ax.set_xlim(
+            right=mdates.date2num(latest_end) + 5
+        )
+
+    statuses = [
+    "Completed",
+    "In Progress",
+    "Scheduled",
+    "At Risk"
+    ]
+
+    legend_items = [
+        Patch(
+            facecolor=status_colour(status),
+            label=status
+        )
+        for status in statuses
+    ]
+
+    ax.legend(
+        handles=legend_items,
+        loc="upper center",
+        bbox_to_anchor=(0.5, 1.12),
+        ncol=4,
+        frameon=False
+    )
+    today = mdates.date2num(date.today())
+
+    ax.axvline(
+        x=today,
+        color=PALETTE["danger"],
+        linestyle="--",
+        linewidth=1.5,
+        alpha=0.8,
+        label="Today"
+    )
     ax.set_yticks(range(len(tasks)))
     ax.set_yticklabels([task["title"] for task in tasks])
 
