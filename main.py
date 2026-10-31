@@ -12,7 +12,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 
 #From the styles.py module
-from ui.styles import apply_theme, set_role, make_card
+from styles import apply_theme, set_role, make_card
 import sample_data
 
 class MainWindow(QMainWindow):
@@ -93,7 +93,7 @@ class MainWindow(QMainWindow):
         dash_layout.addStretch()
 
         # 2. Tasks Screen Placeholder
-        self.page_tasks = QLabel("To-Do Lists & Project Tasks Screen (tasks.py)")
+        self.page_tasks = tasks_page()  # This will call the create_page function from tasks.py
         
         # 3. Team Workload Screen Placeholder (can leverage sample_data.workload(self.data))
         self.page_team = QLabel("Team Workload Management Screen (team.py)")
