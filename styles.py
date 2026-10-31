@@ -101,21 +101,49 @@ QLabel[role="danger"]   {{ color: #8C1F1F; background: #FDE8E8; border: 1px soli
 #Card QLabel {{ background: transparent; }}
 
 /* ---------- buttons ---------- */
-QPushButton {{ background: {p['primary']}; color: white; border: none; border-radius: 8px;
-               padding: 8px 16px; font-weight: 600; }}
-QPushButton:hover {{ background: {p['primary_dk']}; }}
-QPushButton:pressed {{ background: {p['primary_dk']}; }}
-QPushButton:disabled {{ background: {p['border']}; color: {p['text_muted']}; }}
-QPushButton[flat="true"], QPushButton[variant="secondary"] {{
-    background: {p['surface']}; color: {p['text']}; border: 1px solid {p['border']}; }}
-QPushButton[variant="secondary"]:hover {{ background: {p['grid']}; }}
+QPushButton {{
+    background: {p['button']};
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-weight: 600;
+}}
 
+QPushButton:hover {{
+    background: {p['button_hover']};
+}}
+
+QPushButton:pressed {{
+    background: {p['button_hover']};
+}}
+
+QPushButton:disabled {{
+    background: {p['border']};
+    color: {p['text_muted']};
+}}
 /* ---------- inputs ---------- */
 QLineEdit, QTextEdit, QPlainTextEdit, QComboBox, QDateEdit, QSpinBox {{
     background: {p['surface']}; border: 1px solid {p['border']}; border-radius: 8px;
     padding: 7px 10px; selection-background-color: {p['primary']}; selection-color: white; }}
 QLineEdit:focus, QTextEdit:focus, QComboBox:focus, QDateEdit:focus {{ border: 1px solid {p['primary']}; }}
 QComboBox::drop-down {{ border: none; width: 22px; }}
+QComboBox {{
+    background: {p['surface']};
+    color: {p['text']};
+    border: 1px solid {p['border']};
+    border-radius: 8px;
+    padding: 8px 12px;
+}}
+
+QComboBox QAbstractItemView {{
+    background: {p['surface']};
+    color: {p['text']};
+    border: 1px solid {p['border']};
+    selection-background-color: {p['primary']};
+    selection-color: {p['text']};
+    outline: none;
+}}
 
 /* ---------- lists and tables ---------- */
 QTableWidget, QTableView, QListWidget, QTreeWidget {{
