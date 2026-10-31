@@ -92,14 +92,8 @@ class MainWindow(QMainWindow):
         self.stack = QStackedWidget()
         self.stack.setObjectName("Page")
         
-        #Dashboard Screen (Card Container Example)
-        self.page_dashboard_card = make_card()
-        dash_layout = QVBoxLayout(self.page_dashboard_card)
-        dash_title = QLabel("Manager Dashboard")
-        set_role(dash_title, "title")
-        dash_layout.addWidget(dash_title)
-        dash_layout.addWidget(QLabel("dashboard.py content goes here (uses self.data)"))
-        dash_layout.addStretch()
+        # Dashboard Screen
+        self.page_dashboard_card = dashboard_page()
 
         # 2. Tasks Screen Placeholder
         self.page_tasks = tasks_page()  # This will call the create_page function from tasks.py
