@@ -12,7 +12,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtCore import Qt
 
 #From the styles.py module
-from ui.styles import apply_theme, set_role, make_card
+from styles import apply_theme, set_role, make_card
 import sample_data
 
 class MainWindow(QMainWindow):
