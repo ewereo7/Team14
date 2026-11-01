@@ -8,7 +8,7 @@ from team import create_page as team_page
 import sys
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout,
-    QPushButton, QStackedWidget, QLabel, QComboBox
+    QPushButton, QStackedWidget, QLabel, QDialog
 )
 from PySide6.QtCore import Qt
 
@@ -16,11 +16,18 @@ from PySide6.QtCore import Qt
 from styles import apply_theme, set_role, make_card
 import sample_data
 
+# login screen
+from auth_app import LoginWindow
+
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, user):
         super().__init__()
         self.setWindowTitle("Make-It-All Productivity & Knowledge System")
         self.resize(1280, 800)
+
+        #Gets the user from login
+        self.user = user
+        self.logged_out = False #Used when the window closes
 
         #Load shared sample data just in case
         self.data = sample_data.get_sample_data()
@@ -52,18 +59,16 @@ class MainWindow(QMainWindow):
         
         self.sidebar_layout.addWidget(self.logo_label)
 
-        # Choose roels (Employee, Team Leader, Manager)
-        self.role_label = QLabel("Current Role / User:")
+        # Current user (Employee, Team Leader, Manager)
+        self.role_label = QLabel("Logged in as:")
         set_role(self.role_label, "caption")
         self.sidebar_layout.addWidget(self.role_label)
-        
-        self.role_combo = QComboBox()
-        #Gets the users from the data
-        for role, name in self.data["role_users"].items():
-            self.role_combo.addItem(f"{role} ({name})", role)
-        #To get responsiveness from the system   
-        self.role_combo.currentIndexChanged.connect(self.update_permissions)
-        self.sidebar_layout.addWidget(self.role_combo)
+
+        name=self.user["name"]
+        role = self.user["role"]
+        self.user_label = QLabel(f"{name} ({role})")
+        self.user_label.setWordWrap(True)
+        self.sidebar_layout.addWidget(self.user_label)
 
         self.sidebar_layout.addSpacing(20)
 
@@ -87,6 +92,12 @@ class MainWindow(QMainWindow):
             self.nav_buttons[index] = btn
 
         self.sidebar_layout.addStretch()
+
+        #log out button
+        self.logout_button = QPushButton("Log out")
+        self.logout_button.clicked.connect(self.log_out)
+        self.sidebar_layout.addWidget(self.logout_button)
+
         self.main_layout.addWidget(self.sidebar)
 
         #Makes sure one screen is avaliable at one time
@@ -126,9 +137,14 @@ class MainWindow(QMainWindow):
         #picks the correct screen
         self.stack.setCurrentIndex(index)
 
+    def log_out(self):
+        #Back to login after closing
+        self.logged_out = True
+        self.close()
+
     def update_permissions(self):
         #Picks what can been seen depending on the role
-        role_key = self.role_combo.currentData()
+        role_key = self.user["role"]
         
         #Enforces role restrictions based on stakeholder requirements
         if role_key == "Employee":
@@ -152,6 +168,21 @@ if __name__ == "__main__":
     #Gets the right style sheet
     apply_theme(app)
     
-    window = MainWindow()
-    window.show()
-    sys.exit(app.exec())
+    # Login Screen
+    while True:
+        login_window = LoginWindow()
+        login_result=login_window.exec()
+        if login_result != QDialog.Accepted: #User closed the login window
+            break
+
+        #Main window
+        user = login_window.user
+        window = MainWindow(user)
+        window.show()
+        app.exec()
+
+        #Finishes unless they logged out
+        if not window.logged_out:
+            break
+
+    sys.exit(0)
