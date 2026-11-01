@@ -3,7 +3,7 @@ from dashboard import create_page as dashboard_page
 from gantt import create_page as gantt_page
 from tasks import create_page as tasks_page
 from knowledge import create_page as knowledge_page
-from team import create_page as team_page
+
 
 import sys
 from PySide6.QtWidgets import (
@@ -27,7 +27,8 @@ class MainWindow(QMainWindow):
 
         #Gets the user from login
         self.user = user
-        self.logged_out = False #Used when the window closes
+        #Used when the window closes
+        self.logged_out = False 
 
         #Load shared sample data just in case
         self.data = sample_data.get_sample_data()
@@ -77,9 +78,8 @@ class MainWindow(QMainWindow):
         nav_items = [
             ("Dashboard", 0),
             ("To-Do Lists && Tasks", 1),
-            ("Team Workload", 2),
-            ("Gantt Chart", 3),
-            ("Knowledge Management", 4)
+            ("Gantt Chart", 2),
+            ("Knowledge Management", 3)
         ]
 
         for text, index in nav_items:
@@ -108,13 +108,10 @@ class MainWindow(QMainWindow):
         self.page_dashboard_card = dashboard_page()
 
         # link to Tasks Screen 
-        self.page_tasks = tasks_page()  # This will call the create_page function from tasks.py
-        
-        #Team Workload Screen Placeholder which will get added later when the team.py is implemented
-        self.page_team = QLabel("Team Workload Management Screen (team.py), coming soon!")
+        self.page_tasks = tasks_page()  
         
         # link to Gantt Chart Screen
-        self.page_gantt = gantt_page()  # This will call the create_page function from gantt.py
+        self.page_gantt = gantt_page()  
         
         # link to Knowledge Management Screen
         self.page_knowledge = knowledge_page()
@@ -122,9 +119,8 @@ class MainWindow(QMainWindow):
         # Add screens to stack
         self.stack.addWidget(self.page_dashboard_card) # Index 0
         self.stack.addWidget(self.page_tasks)          # Index 1
-        self.stack.addWidget(self.page_team)           # Index 2
-        self.stack.addWidget(self.page_gantt)          # Index 3
-        self.stack.addWidget(self.page_knowledge)      # Index 4
+        self.stack.addWidget(self.page_gantt)          # Index 2
+        self.stack.addWidget(self.page_knowledge)      # Index 3
 
         self.main_layout.addWidget(self.stack, stretch=1)
 
@@ -146,19 +142,17 @@ class MainWindow(QMainWindow):
         #Picks what can been seen depending on the role
         role_key = self.user["role"]
         
-        #Enforces role restrictions based on stakeholder requirements
+        #Enforces role based restrictions 
         if role_key == "Employee":
-            #Hides Dashboard and Team Workload buttons completely as employees should not have access to these features
+            #Hides Dashboard button completely as employees should not have access to these features
             self.nav_buttons[0].hide()  
-            self.nav_buttons[2].hide()  
             
-            if self.stack.currentIndex() in [0, 2]:
+            if self.stack.currentIndex() in [0]:
                 self.nav_buttons[1].setChecked(True)
                 self.switch_page(1)
         else:
             #Show Dashboard and Team Workload buttons for managers/team leaders
             self.nav_buttons[0].show()  
-            self.nav_buttons[2].show()  
 
         print(f"Switched active user view to role: {role_key}")
 
