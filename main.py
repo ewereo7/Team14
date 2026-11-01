@@ -41,10 +41,10 @@ class MainWindow(QMainWindow):
         from PySide6.QtGui import QPixmap
         self.logo_label = QLabel()
         
-        # Change "logo.png" to match your actual image file's name in your project folder
+        #Our logo image to put in the sidebar
         pixmap = QPixmap("logo.png") 
         
-        # Scale the image to fit the sidebar nicely
+        #Scale the image to fit the sidebar nicely
         scaled_pixmap = pixmap.scaled(160, 60, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         self.logo_label.setPixmap(scaled_pixmap)
         self.logo_label.setAlignment(Qt.AlignCenter)
@@ -95,16 +95,16 @@ class MainWindow(QMainWindow):
         # Dashboard Screen
         self.page_dashboard_card = dashboard_page()
 
-        # 2. Tasks Screen Placeholder
+        # link to Tasks Screen 
         self.page_tasks = tasks_page()  # This will call the create_page function from tasks.py
         
-        # 3. Team Workload Screen Placeholder (can leverage sample_data.workload(self.data))
-        self.page_team = QLabel("Team Workload Management Screen (team.py)")
+        #Team Workload Screen Placeholder which will get added later when the team.py is implemented
+        self.page_team = QLabel("Team Workload Management Screen (team.py), coming soon!")
         
-        # 4. Gantt Chart Placeholder
+        # link to Gantt Chart Screen
         self.page_gantt = gantt_page()  # This will call the create_page function from gantt.py
         
-        # 5. Knowledge Management Placeholder
+        # link to Knowledge Management Screen
         self.page_knowledge = knowledge_page()
 
         # Add screens to stack
@@ -116,7 +116,7 @@ class MainWindow(QMainWindow):
 
         self.main_layout.addWidget(self.stack, stretch=1)
 
-        # Set default view and run initial permission check
+        #Sets default view and runs a permission check
         self.nav_buttons[0].setChecked(True)
         self.switch_page(0)
         self.update_permissions()
@@ -129,9 +129,9 @@ class MainWindow(QMainWindow):
         #Picks what can been seen depending on the role
         role_key = self.role_combo.currentData()
         
-        # Enforce role restrictions based on stakeholder requirements
+        #Enforces role restrictions based on stakeholder requirements
         if role_key == "Employee":
-            # Hide Dashboard (Index 0) and Team Workload (Index 2) buttons completely
+            #Hides Dashboard and Team Workload buttons completely as employees should not have access to these features
             self.nav_buttons[0].hide()  
             self.nav_buttons[2].hide()  
             
@@ -139,7 +139,7 @@ class MainWindow(QMainWindow):
                 self.nav_buttons[1].setChecked(True)
                 self.switch_page(1)
         else:
-            # Show Dashboard and Team Workload buttons for managers/team leaders
+            #Show Dashboard and Team Workload buttons for managers/team leaders
             self.nav_buttons[0].show()  
             self.nav_buttons[2].show()  
 
