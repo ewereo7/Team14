@@ -21,6 +21,9 @@ from PySide6.QtCharts import QValueAxis
 from PySide6.QtGui import QColor
 from PySide6.QtGui import QPen
 
+from PySide6.QtWidgets import QTreeWidget
+from PySide6.QtWidgets import QTreeWidgetItem
+
 # Example data for the static prototype
 activeTasks = 18
 completedTasks = 12
@@ -80,7 +83,7 @@ def create_page():
 
     companyLogo = QLabel()
 
-    pixmap = QPixmap("makeItAllLogo.jpeg")
+    pixmap = QPixmap("logo.png")  # i need to change "makeItAll.png" later to match the image file's name in the github
     pixmap = pixmap.scaledToHeight(55, Qt.TransformationMode.SmoothTransformation)
     companyLogo.setPixmap(pixmap)
     navbar.addWidget(companyLogo)
@@ -93,7 +96,7 @@ def create_page():
     overviewButton = QPushButton("Overview")
     employeesButton = QPushButton("View Employee's Workloads")
     projectsButton = QPushButton("View All Projects")
-    tasksButton = QPushButton("View Tasks")
+    tasksButton = QPushButton("Assign Tasks")
 
     #https://doc.qt.io/qt-6/stylesheet-examples.html?utm_source=chatgpt.com#customizing-a-qpushbutton-using-the-box-model
 
@@ -299,21 +302,88 @@ def create_page():
 
     # For employees page
 
+    
+    # For view employees workload page
+    # https://doc.qt.io/qtforpython-6/tutorials/basictutorial/treewidget.html
+    # using this resource i used the QTreeWidget tutorial to display employees and their assigned tasks
+    # the tutorial uses Qtreewidget and QTreeWidgetItem to create a tree structure to display data in a heirachry manner where clicking an arrow next to parent item reveals item underneath.
+    # the tutorial uses a dictoinary of folders and files whereas i will use a dictionary of employees and their assigned tasks. The tutorial uses a static example of folders and files whereas i will use a static example of employees and their assigned tasks
     employeesPage = QWidget()
     employeesLayout = QVBoxLayout(employeesPage)
 
     employeesTitle = QLabel("Employee Workloads")
-    employeesTitle.setStyleSheet(
-        "font-size: 28px; font-weight: bold;"
-    )
+    employeesTitle.setStyleSheet("font-size: 28px; font-weight: bold;")
 
     employeesLayout.addWidget(employeesTitle)
-    employeesLayout.addStretch()
+
+    # copied the static employee task data from the team's Tasks page
+    employeeTasks = {
+        "Amira Hussain": [("Wireframes", "Completed", "100%"),("UI design", "In Progress", "55%")],
+
+        "Ben Johnson": [
+            ("Front-end build", "In Progress", "20%"),
+
+            ("Browser and device testing", "At Risk", "0%"),
+
+            ("Write printing paper guide", "Scheduled", "0%"),
+
+            ("Update footer and legal pages", "In Progress", "40%"),
+
+            ("SEO checks", "Scheduled", "0%"),
+
+            ("Fix navigation bugs", "In Progress", "10%")
+        ],
+
+        "Chloe Nguyen": [("Content migration", "In Progress", "30%"),("Accessibility review", "Scheduled", "0%")],
+
+        "Erin Wallace": [("Task list screens", "In Progress", "15%"),("Reporting dashboard", "Scheduled", "0%"),("Order and install printers", "Scheduled", "0%")],
+
+        "Hannah Reid": [("Requirements workshop", "Completed", "100%"),("User acceptance testing", "Scheduled", "0%")],
+
+        "Kash Patel": [("Data model", "In Progress", "60%"),("Login and permissions", "At Risk", "25%"),("Compare printer suppliers", "In Progress", "70%")],
+
+        "Noah Okafor": [("Stakeholder interviews", "Completed", "100%"),("Launch", "Scheduled", "0%")]
+    }
+
+    #Create the tree widget
+    employeesHeirarchy = QTreeWidget()
+    employeesHeirarchy.setColumnCount(3)
+    employeesHeirarchy.setHeaderLabels([
+        "Employee / Task", "Status", "Progress"
+    ])
+
+    employeesHeirarchy.setColumnWidth(0, 330)
+    employeesHeirarchy.setColumnWidth(1, 130)
+
+    # Add each employee and their tasks
+    heirarchy = []
+
+    for employee, tasks in employeeTasks.items():
+        employeeItem = QTreeWidgetItem([employee])
+
+        for task, status, progress in tasks:
+            taskItem = QTreeWidgetItem([
+                task, status, progress
+            ])
+            employeeItem.addChild(taskItem)
+
+        heirarchy.append(employeeItem)
+
+    employeesHeirarchy.insertTopLevelItems(0, heirarchy)
+
+    employeesLayout.addWidget(employeesHeirarchy)
 
     pages.addWidget(employeesPage)
 
 
+
     #For projects page
+
+    
+    #For projects page
+    # https://doc.qt.io/qtforpython-6/tutorials/basictutorial/treewidget.html
+    # I followed the same approach as the employees page to create a projects page that displays projects and their associated tasks in a tree structure
+
 
     projectsPage = QWidget()
     projectsLayout = QVBoxLayout(projectsPage)
@@ -324,9 +394,74 @@ def create_page():
     )
 
     projectsLayout.addWidget(projectsTitle)
-    projectsLayout.addStretch()
+
+    # Static project task data
+    projectTasks = {
+        "Website Redesign": [
+            ("Stakeholder interviews", "Noah Okafor", "Completed", "100%"),
+
+            ("Wireframes", "Amira Hussain", "Completed", "100%"),
+
+            ("UI design", "Amira Hussain", "In Progress", "55%"),
+
+            ("Content migration", "Chloe Nguyen", "In Progress", "30%"),
+
+            ("Front-end build", "Ben Johnson", "In Progress", "20%"),
+
+            ("Accessibility review", "Chloe Nguyen", "Scheduled", "0%"),
+            ("Browser and device testing", "Ben Johnson", "At Risk", "0%"),
+            ("Launch", "Noah Okafor", "Scheduled", "0%"),
+            ("Update footer and legal pages", "Ben Johnson", "In Progress", "40%"),
+            ("SEO checks", "Ben Johnson", "Scheduled", "0%"),
+
+            ("Fix navigation bugs", "Ben Johnson", "In Progress", "10%")
+        ],
+
+        "Customer Portal": [
+            ("Requirements workshop", "Hannah Reid", "Completed", "100%"),
+            ("Data model", "Kash Patel", "In Progress", "60%"),
+            ("Login and permissions", "Kash Patel", "At Risk", "25%"),
+            ("Task list screens", "Erin Wallace", "In Progress", "15%"),
+            ("Reporting dashboard", "Erin Wallace", "Scheduled", "0%"),
+            ("User acceptance testing", "Hannah Reid", "Scheduled", "0%")
+        ],
+
+        "Office Printing": [
+            ("Compare printer suppliers", "Kash Patel", "In Progress", "70%"),
+            ("Order and install printers", "Erin Wallace", "Scheduled", "0%"),
+            ("Write printing paper guide", "Ben Johnson", "Scheduled", "0%")
+        ]
+    }
+
+    # Create the tree widget
+    projectsHeirarchy = QTreeWidget()
+    projectsHeirarchy.setColumnCount(4)
+    projectsHeirarchy.setHeaderLabels(["Project / Task", "Assigned to", "Status", "Progress"])
+
+    projectsHeirarchy.setColumnWidth(0, 330)
+    projectsHeirarchy.setColumnWidth(1, 160)
+    projectsHeirarchy.setColumnWidth(2, 130)
+
+    #  we then addd the projects and their tasks here
+    heirarchyTwo = []
+
+    for project, tasks in projectTasks.items():
+        projectItem = QTreeWidgetItem([project])
+
+        for task, employee, status, progress in tasks:
+            taskItem = QTreeWidgetItem([
+                task, employee, status, progress
+            ])
+            projectItem.addChild(taskItem)
+
+        heirarchyTwo.append(projectItem)
+
+    projectsHeirarchy.insertTopLevelItems(0, heirarchyTwo)
+
+    projectsLayout.addWidget(projectsHeirarchy)
 
     pages.addWidget(projectsPage)
+
 
 
     # For tasks page
@@ -334,7 +469,7 @@ def create_page():
     tasksPage = QWidget()
     tasksLayout = QVBoxLayout(tasksPage)
 
-    tasksTitle = QLabel("Task Management")
+    tasksTitle = QLabel("In final solution we will be able to assign tasks to employees here")
     tasksTitle.setStyleSheet(
         "font-size: 28px; font-weight: bold;"
     )
