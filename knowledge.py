@@ -81,7 +81,7 @@ def create_page(data=None):
 
     splitter = QSplitter(Qt.Horizontal)
 
-    # LEFT: POSTS TABLE
+    # LEFT SIDE: POSTS DISPLAY
     posts_panel = QWidget()
     posts_layout = QVBoxLayout(posts_panel)
     posts_layout.setContentsMargins(0, 0, 8, 0)
@@ -118,7 +118,7 @@ def create_page(data=None):
 
     splitter.addWidget(posts_panel)
 
-    # RIGHT: POST DETAILS
+    # RIGHT SIDE: POST DETAILS
     details_panel = QWidget()
     details_layout = QVBoxLayout(details_panel)
     details_layout.setContentsMargins(8, 0, 0, 0)
