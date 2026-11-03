@@ -1,7 +1,7 @@
 
 """Visual theme for the Make-It-All prototype.
 
-Owner: Person 6 (Design / Data / QA).  Everyone else imports from here and
+Owner: Chikamso Onwu.  Everyone else imports from here and
 never hard-codes a colour or font size in their own file.
 
     from ui.styles import apply_theme, PALETTE, status_colour, set_role
