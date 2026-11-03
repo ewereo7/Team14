@@ -2,7 +2,7 @@
 
 Owner: Chikamso . Everyone else only READS this file.
 
-Every record is fictional. Dates are fixed (not "today") so every screen and
+Every record is fictional. Dates are fixed  so every screen and
 every screenshot tells the same story.
 
 Usage:
